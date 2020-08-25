@@ -1,0 +1,11 @@
+const embed = new discord.MessageEmbed()
+        .setColor('#4287f5')
+        .setTitle('Title')
+        .setAuthor('Discord WHOIS')
+        .setDescription('Description')
+        .setTimestamp()
+        .setFooter('Discord WHOIS Bot')
+    embed.addFields(
+        { name: 'My field', value: 'They are cool' }
+    )
+    message.channel.send(embed)

@@ -134,7 +134,7 @@ client.on('message', (message) => {
         logger('info', 'Executing command ' + command + ' for user ' + message.author.tag + ' using args "' + args.join(' ') + '"')
 
         let commandrun = client.commands.get(command)
-        commandrun.run(client, message, command, args, db, logger, packages)
+        commandrun.run(client, message, command, args, udb, gdb, logger, packages)
         logger('info', 'Executed.')
     }
 })
