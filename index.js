@@ -196,6 +196,10 @@ client.on('message', (message) => {
     gdb.set(message.guild.id, { id: message.id, channel: message.channel.id, content: message.content, author: message.author.id }, 'msgs.' + message.id)
 
     if (message.content.toLowerCase().startsWith(config.prefix.toLowerCase())) {
+        if (rdb.get(message.author.id, 'rank') === 'Banned') {
+            // Banned users get the good ol' return
+            return message.author.send('You are banned from using Discord WHOIS.')
+        }
         let msgcmd = message.content.split('').slice(config.prefix.length, message.content.split('').length).join('').split(' ')
         command = msgcmd[0]
         args = msgcmd.slice(1, msgcmd.length)
