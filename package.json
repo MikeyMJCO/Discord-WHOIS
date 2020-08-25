@@ -1,0 +1,25 @@
+{
+  "name": "discord-whois",
+  "version": "0.0.1-indev1",
+  "description": "Discord Whois | Search discord, easily.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thetayloredman/discord-whois.git"
+  },
+  "author": "BadBoyHaloCat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thetayloredman/discord-whois/issues"
+  },
+  "homepage": "https://github.com/thetayloredman/discord-whois#readme",
+  "dependencies": {
+    "better-sqlite3": "^7.1.0",
+    "discord.js": "^12.3.1",
+    "enmap": "^5.7.0",
+    "express": "^4.17.1"
+  }
+}
