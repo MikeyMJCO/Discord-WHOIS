@@ -44,7 +44,7 @@ Trusted Users are basically members that have used the bot a lot. They can do th
 
 ### User
 Users are normal bot members. They can use the following:
-- Help command
+- Normal commands
 - Request data extraction
 - Request data removal
 - Opt Out
