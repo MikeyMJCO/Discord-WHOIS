@@ -22,7 +22,8 @@ const client = new discord.Client() // The client is the bot itself. We create i
 const packages = {
     enmap: enmap,
     fs: fs,
-    chalk: chalk
+    chalk: chalk,
+    discord: discord
 }
 
 const config = require("./config.json"),
@@ -52,7 +53,8 @@ client.on('ready', () => {
 
 logger('info', 'Loading databases...')
 // Databases
-const db = new enmap({ name: 'db' }) // This is the primary database.
+const udb = new enmap({ name: 'udb' }) // This is the primary users database.
+const gdb = new enmap({ name: 'gdb' })
 
 logger('info', 'Loading commands...')
 // Command Handler
@@ -81,18 +83,59 @@ fs.readdir('./commands/', (err, files) => {
     }
 })
 
+// Add guilds/users to the DB
+// Ensure the user is in the db
+let udefaults = {
+    lmsg: undefined, // Latest message
+    mct: 0, // Message count
+    msgs: { // Messages by ID
+
+    }
+}
+let gdefaults = {
+    lmsg: undefined, // Latest message
+    mct: 0, // Message count
+    msgs: { // Messages by ID
+
+    }
+}
+client.on('guildCreate', (guild) => {
+    gdb.ensure(guild.id, gdefaults)
+})
+client.on('guildMemberAdd', (member) => {
+    udb.ensure(member.id, udefaults)
+})
+
 // Now we have loaded all commands, we can make the command handler's message event
 client.on('message', (message) => {
     // Here we can update the db
-    // wip
+    // Be 10000% sure
+    gdb.ensure(message.guild.id, gdefaults)
+    udb.ensure(message.author.id, udefaults)
+    // Set latest message
+    udb.set(message.author.id, { id: message.id, guild: message.guild.id, channel: message.channel.id, content: message.content }, 'lmsg')
+    gdb.set(message.guild.id, { id: message.id, channel: message.channel.id, content: message.content, author: message.author.id }, 'lmsg')
+    
+    // Increment message counts
+    udb.inc(message.author.id, 'mct')
+    gdb.inc(message.guild.id, 'mct')
 
+    // Add to messages
+    udb.set(message.author.id, { id: message.id, guild: message.guild.id, channel: message.channel.id, content: message.content }, 'msgs.' + message.id)
+    gdb.set(message.guild.id, { id: message.id, channel: message.channel.id, content: message.content, author: message.author.id }, 'msgs.' + message.id)
+
+    console.log(udb.get(message.author.id))
+    console.log(gdb.get(message.guild.id))
     if (message.content.startsWith(config.prefix)) {
-        let msgcmd = message.content.split('').join(config.prefix.length, message.content.split('').length)
+        let msgcmd = message.content.split('').slice(config.prefix.length, message.content.split('').length).join('').split(' ')
         command = msgcmd[0]
         args = msgcmd.slice(1, msgcmd.length)
 
+        logger('info', 'Executing command ' + command + ' for user ' + message.author.tag + ' using args "' + args.join(' ') + '"')
+
         let commandrun = client.commands.get(command)
         commandrun.run(client, message, command, args, db, logger, packages)
+        logger('info', 'Executed.')
     }
 })
 
