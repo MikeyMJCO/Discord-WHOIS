@@ -1,4 +1,4 @@
-exports.run = (client, message, command, args, udb, gdb, logger, packages) => {
+exports.run = (client, message, command, args, udb, gdb, rdb, logger, packages) => {
     // Import modules
     const discord = packages.discord
 

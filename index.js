@@ -8,6 +8,8 @@
  * GitHub: https://github.com/thetayloredman/discord-whois
  */
 
+console.clear()
+
 // Load packages
 const discord = require("discord.js"), // Discord.JS is the primary library used to run the bot.
     enmap = require("enmap"), // Enmap is the database
@@ -54,7 +56,8 @@ client.on('ready', () => {
 logger('info', 'Loading databases...')
 // Databases
 const udb = new enmap({ name: 'udb' }) // This is the primary users database.
-const gdb = new enmap({ name: 'gdb' })
+const gdb = new enmap({ name: 'gdb' }) // Primary guilds DB
+const rdb = new enmap({ name: 'rdb' })
 
 logger('info', 'Loading commands...')
 // Command Handler
@@ -99,11 +102,16 @@ let gdefaults = {
 
     }
 }
+let rdefaults = {
+    rank: 'default',
+    notes: 'None'
+}
 client.on('guildCreate', (guild) => {
     gdb.ensure(guild.id, gdefaults)
 })
 client.on('guildMemberAdd', (member) => {
     udb.ensure(member.id, udefaults)
+    rdb.ensure(member.id, rdefaults)
 })
 
 // Now we have loaded all commands, we can make the command handler's message event
@@ -112,6 +120,7 @@ client.on('message', (message) => {
     // Be 10000% sure
     gdb.ensure(message.guild.id, gdefaults)
     udb.ensure(message.author.id, udefaults)
+    rdb.ensure(message.author.id, rdefaults)
     // Set latest message
     udb.set(message.author.id, { id: message.id, guild: message.guild.id, channel: message.channel.id, content: message.content }, 'lmsg')
     gdb.set(message.guild.id, { id: message.id, channel: message.channel.id, content: message.content, author: message.author.id }, 'lmsg')
@@ -124,8 +133,6 @@ client.on('message', (message) => {
     udb.set(message.author.id, { id: message.id, guild: message.guild.id, channel: message.channel.id, content: message.content }, 'msgs.' + message.id)
     gdb.set(message.guild.id, { id: message.id, channel: message.channel.id, content: message.content, author: message.author.id }, 'msgs.' + message.id)
 
-    console.log(udb.get(message.author.id))
-    console.log(gdb.get(message.guild.id))
     if (message.content.startsWith(config.prefix)) {
         let msgcmd = message.content.split('').slice(config.prefix.length, message.content.split('').length).join('').split(' ')
         command = msgcmd[0]
@@ -134,7 +141,7 @@ client.on('message', (message) => {
         logger('info', 'Executing command ' + command + ' for user ' + message.author.tag + ' using args "' + args.join(' ') + '"')
 
         let commandrun = client.commands.get(command)
-        commandrun.run(client, message, command, args, udb, gdb, logger, packages)
+        commandrun.run(client, message, command, args, udb, gdb, rdb, logger, packages)
         logger('info', 'Executed.')
     }
 })
