@@ -17,20 +17,20 @@ exports.run = (client, message, command, args, udb, gdb, rdb, logger, packages) 
 
     try {
         let code = args.join(" ")
-        let evaled = (args[0] === "async") ? args.shift() && await eval(args.join(' ')) : eval(code)
+        let evaled = (args[0] === "async") ? args.shift().then(async function() { await eval(args.join(' '))}) : eval(code)
         if (typeof evaled !== 'string')
             evaled = require('util').inspect(evaled);
 
-        const embed = new Discord.MessageEmbed()
+        const embed = new discord.MessageEmbed()
             .setColor('GREEN')
             .setTitle('Evaluation: Success')
             .setDescription(`\`\`\`xl\n${clean(evaled)}\n\`\`\``)
         message.channel.send(embed);
-        logger('info', `[INFO] Evaluation: Success | Code: ${code}`)
+        logger('info', `Evaluation: Success | Code: ${code}`)
     } catch (err) {
         logger('error', `Evaluation: Error | See below log.`)
-        client.logger(err)
-        const embed = new Discord.MessageEmbed()
+        logger('error', err)
+        const embed = new discord.MessageEmbed()
             .setColor('RED')
             .setTitle('Evaluation: Error (Full log in console)')
             .setDescription(`\`\`\`xl\n${clean(err)}\n\`\`\``)
