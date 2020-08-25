@@ -59,11 +59,7 @@ const udb = new enmap({ name: 'udb' }) // This is the primary users database.
 const gdb = new enmap({ name: 'gdb' }) // Primary guilds DB
 const rdb = new enmap({ name: 'rdb' }) // ranks
 
-// Auto backup
-logger('info', 'Loading backup system...')
-setInterval(() => {
-    backup()
-}, client.config.backuprate)
+// Run "backup()" to back up.
 
 function backup() {
     logger('info', 'Backing up...')
@@ -85,7 +81,6 @@ function backup() {
             })
         }
         else {
-            console.log(files)
             let id = Number(files[files.length - 1]) + 1
             runBackup(id)
         }
@@ -123,8 +118,6 @@ function runBackup(id) {
         }
     })
 }
-
-backup()
 
 logger('info', 'Loading commands...')
 // Command Handler
