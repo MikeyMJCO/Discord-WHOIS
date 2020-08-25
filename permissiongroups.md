@@ -15,20 +15,24 @@ Great question! Here is the list of permission groups from most permitted to lea
 ## What permissions does each have?
 Here is the list:
 ### Owner
+#### NOT IMPLEMENTED
 Owners are the top-tier of user. They are the primary developer. They can do ANYTHING.
 
 ### Admin
+#### NOT IMPLEMENTED
 Admins are advanced maintainers. Their job is to assist users with data extraction.
 - View raw user data
 - All of [Maintainer](#maintainer)
 
 ### Maintainer
+#### NOT IMPLEMENTED
 Maintainers manage the database. Their job is to back up and supervise the bot.
 - Backup
 - Opt users out
 - All of [Support](#support)
 
 ### Support
+#### NOT IMPLEMENTED
 Support is pretty low level. They can do the following:
 - View support tickets
 - Get Maintainers or above user data
@@ -36,6 +40,7 @@ Support is pretty low level. They can do the following:
 - All of [Trusted User](#trusted-user)
 
 ### Trusted User
+#### NOT IMPLEMENTED
 Trusted Users are basically members that have used the bot a lot. They can do the following:
 - Request data removal for another person
 - Request someone else's raw data
