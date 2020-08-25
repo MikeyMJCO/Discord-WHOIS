@@ -163,7 +163,7 @@ let gdefaults = {
     }
 }
 let rdefaults = {
-    rank: 'default',
+    rank: 'User',
     notes: 'None'
 }
 client.on('guildCreate', (guild) => {
