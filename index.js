@@ -62,24 +62,35 @@ const rdb = new enmap({ name: 'rdb' }) // ranks
 // Auto backup
 logger('info', 'Loading backup system...')
 setInterval(() => {
+    backup()
+}, client.config.backuprate)
+
+function backup() {
     logger('info', 'Backing up...')
     fs.readdir('./backups/', (err, files) => {
+        if (typeof files === 'undefined') {
+            files = [0]
+        }
+        files = files.sort((a, b) => a - b)
         if (err) {
             logger('error', 'Couldn\'t access the ./backups/ directory. Creating it!')
             fs.mkdir('./backups/', (err) => {
                 if (err) {
                     logger('error', 'Failed to breate the ./backups/ directory! Backup FAILED!')
-                } else {
-                    let id = Number(files[files.length - 1]) + 1
+                }
+                else {
+                    let id = 1
                     runBackup(id)
                 }
             })
-        } else {
+        }
+        else {
+            console.log(files)
             let id = Number(files[files.length - 1]) + 1
             runBackup(id)
         }
     })
-}, 60000)
+}
 
 function runBackup(id) {
     fs.mkdir('./backups/' + id + '/', (err) => {
@@ -112,6 +123,8 @@ function runBackup(id) {
         }
     })
 }
+
+backup()
 
 logger('info', 'Loading commands...')
 // Command Handler
