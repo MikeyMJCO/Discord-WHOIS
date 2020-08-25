@@ -57,7 +57,61 @@ logger('info', 'Loading databases...')
 // Databases
 const udb = new enmap({ name: 'udb' }) // This is the primary users database.
 const gdb = new enmap({ name: 'gdb' }) // Primary guilds DB
-const rdb = new enmap({ name: 'rdb' })
+const rdb = new enmap({ name: 'rdb' }) // ranks
+
+// Auto backup
+logger('info', 'Loading backup system...')
+setInterval(() => {
+    logger('info', 'Backing up...')
+    fs.readdir('./backups/', (err, files) => {
+        if (err) {
+            logger('error', 'Couldn\'t access the ./backups/ directory. Creating it!')
+            fs.mkdir('./backups/', (err) => {
+                if (err) {
+                    logger('error', 'Failed to breate the ./backups/ directory! Backup FAILED!')
+                } else {
+                    let id = Number(files[files.length - 1]) + 1
+                    runBackup(id)
+                }
+            })
+        } else {
+            let id = Number(files[files.length - 1]) + 1
+            runBackup(id)
+        }
+    })
+}, 60000)
+
+function runBackup(id) {
+    fs.mkdir('./backups/' + id + '/', (err) => {
+        if (err) {
+            logger('error', 'Couldn\'t make backup folder! Backup FAILED!')
+        } else {
+            logger('info', 'Created backup directory.')
+            fs.writeFile('./backups/' + id + '/udb-backup.json', udb.export(), (err) => {
+                if (err) {
+                    logger('error', 'Failed to write UDB backup. Backup FAILED!')
+                } else {
+                    logger('info', 'Backed up UDB.')
+                    fs.writeFile('./backups/' + id + '/gdb-backup.json', gdb.export(), (err) => {
+                        if (err) {
+                            logger('error', 'Failed to write GDB backup. Backup FAILED!')
+                        } else {
+                            logger('info', 'Backed up GDB.')
+                            fs.writeFile('./backups/' + id + '/rdb-backup.json', rdb.export(), (err) => {
+                                if (err) {
+                                    logger('error', 'Failed to write RDB backup. Backup FAILED!')
+                                } else {
+                                    logger('info', 'Backed up RDB.')
+                                    logger('info', 'Backup complete. See ./backups/' + id + '/ for backup data.')
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+        }
+    })
+}
 
 logger('info', 'Loading commands...')
 // Command Handler
@@ -107,9 +161,11 @@ let rdefaults = {
     notes: 'None'
 }
 client.on('guildCreate', (guild) => {
+    logger('info', 'I was added to a new guild: ' + guild.id)
     gdb.ensure(guild.id, gdefaults)
 })
 client.on('guildMemberAdd', (member) => {
+    logger('info', 'A member joined the guild ' + member.guild.id + '! Member ID: ' + member.id)
     udb.ensure(member.id, udefaults)
     rdb.ensure(member.id, rdefaults)
 })
@@ -133,7 +189,7 @@ client.on('message', (message) => {
     udb.set(message.author.id, { id: message.id, guild: message.guild.id, channel: message.channel.id, content: message.content }, 'msgs.' + message.id)
     gdb.set(message.guild.id, { id: message.id, channel: message.channel.id, content: message.content, author: message.author.id }, 'msgs.' + message.id)
 
-    if (message.content.startsWith(config.prefix)) {
+    if (message.content.toLowerCase().startsWith(config.prefix.toLowerCase())) {
         let msgcmd = message.content.split('').slice(config.prefix.length, message.content.split('').length).join('').split(' ')
         command = msgcmd[0]
         args = msgcmd.slice(1, msgcmd.length)
