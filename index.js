@@ -12,7 +12,12 @@
 const discord = require("discord.js"), // Discord.JS is the primary library used to run the bot.
     enmap = require("enmap"), // Enmap is the database
     fs = require("fs"),
-    chalk = require("chalk")
+    chalk = require("chalk"),
+    inquirer = require("inquirer")
+
+
+// Launch client instance
+const client = new discord.Client() // The client is the bot itself. We create it here.
 
 const packages = {
     enmap: enmap,
@@ -20,20 +25,19 @@ const packages = {
     chalk: chalk
 }
 
-// Load config and package
 const config = require("./config.json"),
     package = require("./package.json")
 
 client.config = config
 
 // logger function
-function logger(type = 'info', logger = 'No logger text specified') {
+function logger(type = 'info', log = 'No logger text specified') {
     if (type === 'info') {
-        console.logger(chalk.blue(chalk.bold('[INFO]') + ' ' + logger))
+        console.log(chalk.blue(chalk.bold('[INFO]') + ' ' + log))
     } else if (type === 'warning') {
-        console.logger(chalk.yellow(chalk.bold('[WARN]') + ' ' + logger))
+        console.log(chalk.yellow(chalk.bold('[WARN]') + ' ' + log))
     } else if (type === 'error') {
-        console.logger(chalk.underline(chalk.red(chalk.bold('[ERR]') + ' ' + logger)))
+        console.log(chalk.underline(chalk.red(chalk.bold('[ERR]') + ' ' + log)))
     }
 }
 
@@ -42,8 +46,9 @@ logger('info', 'Version ' + package.version)
 logger('info', 'Developed by BadBoyHaloCat')
 logger('info', 'Launching client...')
 
-// Launch client instance
-const client = new discord.Client() // The client is the bot itself. We create it here.
+client.on('ready', () => {
+    logger('info', 'Client online with username ' + client.user.tag)
+})
 
 logger('info', 'Loading databases...')
 // Databases
@@ -61,21 +66,14 @@ fs.readdir('./commands/', (err, files) => {
     } else {
         files.forEach((file) => {
             if (file.endsWith('.js')) {
-                let commandname = file.split('.').slice(0, file.split('.').length - 1)
+                let commandname = file.split('.').slice(0, file.split('.').length - 1).join('.')
                 logger('info', 'Loading command ' + commandname)
-                fs.readFile('./commands/' + file, 'utf8', (err, contents) => {
-                    if (err) {
-                        logger('error', 'Failed to load command ' + commandname + ', skipping. (FAILED TO READ FILE)')
-                    } else {
-                        logger('info', 'Loading command ' + commandname)
-                        let commanddata = require('./commands/' + file)
-                        if (!commanddata.info) {
-                            logger('error', 'Failed to load command ' + commandname + ', skipping. (NO HELP PROPERTIES)')
-                        }
-                        client.commandshelpData.set(`commands`, props.info, props.info.name)
-                        client.commands.set(commandname, props)
-                    }
-                })
+                let commanddata = require('./commands/' + file)
+                if (!commanddata.info) {
+                    logger('error', 'Failed to load command ' + commandname + ', skipping. (NO HELP PROPERTIES)')
+                }
+                client.commandshelpData.set(`commands`, commanddata.info, commanddata.info.name)
+                client.commands.set(commandname, commanddata)
             } else {
                 logger('warning', 'Found file ' + file + ' in the commands directory. This is not going to be loaded as it is not a .js file.')
             }
@@ -97,3 +95,6 @@ client.on('message', (message) => {
         commandrun.run(client, message, command, args, db, logger, packages)
     }
 })
+
+// Launch client
+client.login(client.config.token)
