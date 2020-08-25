@@ -18,6 +18,7 @@
   "homepage": "https://github.com/thetayloredman/discord-whois#readme",
   "dependencies": {
     "better-sqlite3": "^7.1.0",
+    "chalk": "^4.1.0",
     "discord.js": "^12.3.1",
     "enmap": "^5.7.0",
     "express": "^4.17.1"
