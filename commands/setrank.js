@@ -22,14 +22,14 @@ exports.run = (client, message, command, args, udb, gdb, rdb, logger, packages) 
             { name: '`Trusted User`', value: 'Trusted Users are basically members that have used the bot a lot.' }
         )
 
-        if (rank === "Admin") {
+        if (rank === "Admin" || rank === "Owner") {
             embed.addFields(
                 { name: '`Maintainer`', value: 'Maintainers manage the database. Their job is to back up and supervise the bot.' },
                 { name: '`Support`', value: 'Support is pretty low level, they well.. Support users.' }
             )
         }
 
-        if (rank === "Owner" || rank === "Admin") {
+        if (rank === "Owner") {
             embed.addFields(
                 { name: '`Admin`', value: 'Admins monitor and support the bot.' },
                 { name: '`Owner`', value: 'Owners can use eval and bypass all permission restristions.' }
