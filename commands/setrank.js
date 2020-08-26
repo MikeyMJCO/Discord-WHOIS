@@ -36,18 +36,23 @@ exports.run = (client, message, command, args, udb, gdb, rdb, logger, packages) 
             )
         }
     } else {
-        if (!args[2]) {
+        if (!args.slice(1, args.length).join(' ')) {
             return message.reply('What rank did you want to set..?')
         } else {
-            let user = args[1].replace(/[<@!>]/, '')
+            let user = args[0].replace(/[<@!>]/g, '')
             const permg = ["Banned", "User", "Premium", "Trusted User", "Support", "Maintainer", "Admin", "Owner"]
 
-            if (permg.contains(args[2])) {
+            if (permg.includes(args.slice(1, args.length).join(' '))) {
                 rdb.set(user, args[2], 'rank')
+                logger('info', message.author.tag + ' has set user ' + user + ' to rank ' + args.slice(1, args.length).join(' ') + ' (Command info: Channel: ' + message.channel.name + ' in server ' + message.guild.name + ')')
+            } else {
+                message.reply("What the hell is that rank? I know the following ranks: `" + permg.join('`, `') + '`')
             }
         }
     }
-    message.reply(embed)
+    if (embed) {
+        message.reply(embed)
+    }
 }
 
 // Info for help command
