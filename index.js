@@ -10,6 +10,9 @@
 
 console.clear()
 
+// Set variables
+const permg = ["Banned", "User", "Trusted User", "Support", "Maintainer", "Admin", "Owner"]
+
 // Load packages
 const discord = require("discord.js"), // Discord.JS is the primary library used to run the bot.
     enmap = require("enmap"), // Enmap is the database
@@ -38,9 +41,9 @@ function logger(type = 'info', log = 'No logger text specified') {
     if (type === 'info') {
         console.log(chalk.blue(chalk.bold('[INFO]') + ' ' + log))
     } else if (type === 'warning') {
-        console.log(chalk.yellow(chalk.bold('[WARN]') + ' ' + log))
+        console.warn(chalk.yellow(chalk.bold('[WARN]') + ' ' + log))
     } else if (type === 'error') {
-        console.log(chalk.underline(chalk.red(chalk.bold('[ERR]') + ' ' + log)))
+        console.error(chalk.underline(chalk.red(chalk.bold('[ERR]') + ' ' + log)))
     }
 }
 
