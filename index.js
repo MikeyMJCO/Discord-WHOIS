@@ -11,7 +11,7 @@
 console.clear()
 
 // Set variables
-const permg = ["Banned", "User", "Trusted User", "Support", "Maintainer", "Admin", "Owner"]
+const permg = ["Banned", "User", "Premium", "Trusted User", "Support", "Maintainer", "Admin", "Owner"]
 
 // Load packages
 const discord = require("discord.js"), // Discord.JS is the primary library used to run the bot.
