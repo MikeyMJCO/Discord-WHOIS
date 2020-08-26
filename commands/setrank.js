@@ -44,7 +44,7 @@ exports.run = (client, message, command, args, udb, gdb, rdb, logger, packages) 
 
             if (permg.includes(args.slice(1, args.length).join(' '))) {
                 rdb.set(user, args[2], 'rank')
-                logger('info', message.author.tag + ' has set user ' + user + ' to rank ' + args.slice(1, args.length).join(' ') + ' (Command info: Channel: ' + message.channel.name + ' in server ' + message.guild.name + ')')
+                logger('info', message.author.tag + ' has set user ' + user + ' to rank ' + args.slice(1, args.length).join(' ') + ' (Info: Channel: "' + message.channel.name + '" in server "' + message.guild.name + '")')
             } else {
                 message.reply("What the hell is that rank? I know the following ranks: `" + permg.join('`, `') + '`')
             }
