@@ -29,5 +29,5 @@ exports.run = (client, message, command, args, udb, gdb, rdb, logger, packages) 
 // Info for help command
 exports.info = {
     name: `user`,
-    description: `**Rank Needed**: \`User\`\n**Usage**: \`${client.config.prefix}user <mention or user ID>\`\nGet the WHOIS info on a user.`
+    description: `**Rank Needed**: \`User\`\n**Usage**: \`user <mention or user ID>\`\nGet the WHOIS info on a user.`
 }

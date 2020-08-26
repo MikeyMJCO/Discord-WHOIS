@@ -41,5 +41,5 @@ exports.run = (client, message, command, args, udb, gdb, rdb, logger, packages) 
 // Info for help command
 exports.info = {
     name: `eval`,
-    description: `**Rank Needed**: \`Owner\`\nUsage: \`${client.config.prefix}eval <code>\`\nEvalulate code!`
+    description: `**Rank Needed**: \`Owner\`\nUsage: \`eval <code>\`\nEvalulate code!`
 }
