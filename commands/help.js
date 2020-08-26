@@ -32,5 +32,5 @@ exports.run = (client, message, command, args, udb, gdb, rdb, logger, packages) 
 // Info for help command
 exports.info = {
     name: `help`,
-    description: `See all of my commands!`
+    description: `**Rank Needed**: \`User\`\n**Usage**: \`${client.config.prefix}help\`\nSee all of my commands!`
 }
