@@ -102,10 +102,12 @@ fs.readFile('./commands/eval.js', (err, contents) => {
     }
 })
 
-if (failedct > 0) {
-    console.log("Failed " + failedct + " checks. Failed checks are: " + missed.join(', '))
-    process.exit(1) // Exit code 1 so that github marks this as a failed check
-} else {
-    console.log("Check passed.")
-    process.exit(0) // Exit code 0 so that github will not mark this as failed
-}
+setTimeout(() => {
+    if (failedct > 0) {
+        console.log("Failed " + failedct + " checks. Failed checks are: " + missed.join(', '))
+        process.exit(1) // Exit code 1 so that github marks this as a failed check
+    } else {
+        console.log("Check passed.")
+        process.exit(0) // Exit code 0 so that github will not mark this as failed
+    }
+}, 10000)
