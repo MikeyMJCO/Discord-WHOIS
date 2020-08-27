@@ -1,5 +1,26 @@
 # Discord WHOIS
 ## By BadBoyHaloCat
+[![Discord](https://img.shields.io/discord/748260441884459079?label=Discord&style=for-the-badge)](https://discord.gg/fWjWWk2)
+
+![Checks](https://img.shields.io/github/workflow/status/thetayloredman/Discord-WHOIS/Discord%20WHOIS?label=Checks&style=for-the-badge)
+
+![Languages](https://img.shields.io/github/languages/count/thetayloredman/Discord-WHOIS?style=for-the-badge) ![Top language](https://img.shields.io/github/languages/top/thetayloredman/Discord-WHOIS?style=for-the-badge)
+
+![Code size](https://img.shields.io/github/repo-size/thetayloredman/Discord-WHOIS?label=Code%20size&style=for-the-badge)
+
+![Issues](https://img.shields.io/github/issues-raw/thetayloredman/Discord-WHOIS?style=for-the-badge) ![Closed issues](https://img.shields.io/github/issues-closed-raw/thetayloredman/Discord-WHOIS?style=for-the-badge)
+
+![Pull requests](https://img.shields.io/github/issues-pr-raw/thetayloredman/Discord-WHOIS?style=for-the-badge) ![Closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/thetayloredman/Discord-WHOIS?style=for-the-badge)
+
+![Forks](https://img.shields.io/github/forks/thetayloredman/Discord-WHOIS?style=for-the-badge) ![Stars](https://img.shields.io/github/stars/thetayloredman/Discord-WHOIS?style=for-the-badge) ![Watchers](https://img.shields.io/github/watchers/thetayloredman/Discord-WHOIS?style=for-the-badge)
+
+![Commit rate](https://img.shields.io/github/commit-activity/m/thetayloredman/Discord-WHOIS?label=Commit%20Rate&style=for-the-badge)
+
+![Contributors](https://img.shields.io/github/contributors/thetayloredman/Discord-WHOIS?style=for-the-badge)
+
+![Latest commit](https://img.shields.io/github/last-commit/thetayloredman/Discord-WHOIS?label=latest%20commit&style=for-the-badge)
+
+![Version](https://img.shields.io/github/package-json/v/thetayloredman/Discord-WHOIS?style=for-the-badge) ![Licence](https://img.shields.io/github/license/thetayloredman/Discord-WHOIS?style=for-the-badge)
 
 ## What is Discord WHOIS?
 Discord WHOIS is a Discord bot aiming to provide simple user/guild lookup.
