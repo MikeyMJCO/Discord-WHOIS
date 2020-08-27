@@ -167,6 +167,7 @@ let gdefaults = {
 }
 let rdefaults = {
     rank: 'User',
+    banned: true,
     notes: 'None'
 }
 client.on('guildCreate', (guild) => {
@@ -199,7 +200,7 @@ client.on('message', (message) => {
     gdb.set(message.guild.id, { id: message.id, channel: message.channel.id, content: message.content, author: message.author.id }, 'msgs.' + message.id)
 
     if (message.content.toLowerCase().startsWith(config.prefix.toLowerCase())) {
-        if (rdb.get(message.author.id, 'rank') === 'Banned') {
+        if (rdb.get(message.author.id, 'banned') === true) {
             // Banned users get the good ol' return
             return message.author.send('You are banned from using Discord WHOIS.')
         }

@@ -37,6 +37,7 @@ Maintainers manage the database. Their job is to back up and supervise the bot.
 Support is pretty low level. They can do the following:
 - View support tickets
 - Get Maintainers or above user data
+- Ban users
 - Set [Trusted User](#trusted-user) ranks
 - All of [Trusted User](#trusted-user)
 
@@ -59,6 +60,3 @@ Users are normal bot members. They can use the following:
 - Request data extraction
 - Request data removal
 - Opt Out
-
-### Banned
-Banned members are **unable to use the bot**. They will still be recorded by the bot, but cannot run commands.
