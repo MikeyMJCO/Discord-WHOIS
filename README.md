@@ -42,6 +42,11 @@ If you want your data, please DM **@BadBoyHaloCat#1826** on Discord.
 The way Discord WHOIS works, is by tracking user stats in many guilds. When you send a message, around 5 values are modified on YOU, and about 10 are modified on the guild.
 When you run a WHOIS, we check for all of this user data and send it to you.
 
+## Where can I get support?
+If something unexpected happened with the bot, please join our support server by clicking [here](https://discord.gg/fWjWWk2) or on the embed below.
+
+[![Discord](https://img.shields.io/discord/748260441884459079?label=Discord&style=for-the-badge&logo=discord)](https://discord.gg/fWjWWk2)
+
 ## Is my data backed up?
 To prevent accidental data loss, the bot will automatically back up the database every once in a while.
 
