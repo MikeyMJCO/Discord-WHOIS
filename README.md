@@ -26,3 +26,7 @@ To prevent accidental data loss, the bot will automatically back up the database
 
 ## How can I contribute?
 Just make a new branch here on GitHub and then simply make your changes and then open a pull request.
+
+## Support
+Join the support server for support.
+<iframe src="https://discordapp.com/widget?id=748260441884459079&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
