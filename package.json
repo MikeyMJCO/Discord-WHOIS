@@ -1,6 +1,6 @@
 {
   "name": "discord-whois",
-  "version": "0.0.1-indev1",
+  "version": "0.0.1-alpha1",
   "description": "Discord Whois | Search discord, easily.",
   "main": "index.js",
   "scripts": {
